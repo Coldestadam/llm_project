@@ -140,4 +140,3 @@ websocket-client==1.8.0
 websockets==14.0
 wrapt==1.16.0
 yarl==1.17.1
-pysqlite3-binary==0.5.4
