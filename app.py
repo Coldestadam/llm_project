@@ -2,6 +2,17 @@ import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from rag import get_embedding_model, get_history_aware_retriever, get_llm_model, get_rag_chain, get_chromadb_client
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 # Getting all necessary objects for langchain app
 embedding_model = get_embedding_model()
 llm = get_llm_model()
