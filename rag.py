@@ -36,10 +36,17 @@ def get_chromadb_client(_embedding_model):
     loader = TextLoader(file_path="info/Personal RAG Details.txt")
     documents = loader.load()
 
+    # Loading readme of the repo
+    readme_loader = TextLoader(file_path="readme")
+    readme_docs = readme_loader.load()
+
+    # Combining readme doc with documents
+    documents.extend(readme_docs)
+
     pdf_loader = PyPDFLoader("info/AV_MLE_Resume.pdf")
     pdf_docs = pdf_loader.load()
 
-    # Combining documents together
+    # Combining resume doc with documents
     documents.extend(pdf_docs)
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
