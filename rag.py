@@ -7,7 +7,6 @@ from langchain_community.document_loaders import TextLoader
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.messages import AIMessage, HumanMessage
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.document_loaders import PyPDFLoader
@@ -38,7 +37,7 @@ def get_chromadb_client(_embedding_model):
     documents = loader.load()
 
     pdf_loader = PyPDFLoader("info/AV_MLE_Resume.pdf")
-    pdf_docs = pdf_loader
+    pdf_docs = pdf_loader.load()
 
     # Combining documents together
     documents.extend(pdf_docs)

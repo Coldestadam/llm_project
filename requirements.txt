@@ -138,3 +138,4 @@ websockets==14.1
 wrapt==1.16.0
 yarl==1.17.1
 zipp==3.21.0
+pypdf==5.1.0
