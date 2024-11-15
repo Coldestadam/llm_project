@@ -151,3 +151,8 @@ def get_rag_chain(_llm, _history_aware_retriever):
     question_answer_chain = create_stuff_documents_chain(llm=_llm, prompt=qa_prompt)
     rag_chain = create_retrieval_chain(_history_aware_retriever, question_answer_chain)
     return rag_chain
+
+def stream_wrapper(rag_chain_stream):
+    for chunk in rag_chain_stream:
+        if "answer" in chunk:
+            yield chunk["answer"]
