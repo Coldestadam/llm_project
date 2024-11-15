@@ -139,3 +139,5 @@ wrapt==1.16.0
 yarl==1.17.1
 zipp==3.21.0
 pypdf==5.1.0
+unstructured==0.16.5
+markdown==3.7

@@ -4,7 +4,7 @@ This is an app where the intention is to answer any personal or professional que
 ## Who is this for?
 I hope this will be used by **RECRUITERS** or potential future **EMPLOYERS** as the proof needed to show my depth as a potential candidate in terms of my engineering ability and ability to quickly learn new technological advancements.
 
-However, I hope it will also be used by friends or perhaps potential new friends who are interested in learning more about me. This is not a replacement for me as a person, but I hope it will encourage others to get to know more on a deeper level. Whether you are a recruiter or a person in my life, I am much more than what I can include in this application. Just like everyone, I am a person with deep convictions and desires, and I hope that this application will not replace me but enhance others to know me better. And there will always be information that is not included here as only more information will be given through true relationships in time
+However, I hope it will also be used by friends or perhaps potential new friends who are interested in learning more about me. This is not a replacement for me as a person, but I hope it will encourage others to get to know more on a deeper level. Whether you are a recruiter or a person in my life, I am much more than what I can include in this application. Just like everyone, I am a person with deep convictions and desires, and I hope that this application will not replace me but enhance others to know me better. And there will always be information that is not included here as only more information will be given through true relationships in time :smile:
 
 ## Quick Techincal Background of the App
 ![RAG Workflow Img](info/rag_workflow_diagram.png)

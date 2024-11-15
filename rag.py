@@ -3,13 +3,12 @@ import streamlit as st
 import chromadb
 from langchain import hub
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import TextLoader
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader, UnstructuredMarkdownLoader
 
 # Initializing Langchain API
 
@@ -37,9 +36,8 @@ def get_chromadb_client(_embedding_model):
     documents = loader.load()
 
     # Loading readme of the repo
-    readme_loader = TextLoader(file_path="readme")
+    readme_loader = UnstructuredMarkdownLoader(file_path="README.md")
     readme_docs = readme_loader.load()
-
     # Combining readme doc with documents
     documents.extend(readme_docs)
 
