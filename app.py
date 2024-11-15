@@ -19,6 +19,8 @@ welcome_message = \
 Hi there! This app is built with [Langchain](https://www.langchain.com/) using the latest OpenAI products. It is meant to answer any personal or professional questions about myself!
 It was a blast to learn these technologies and it has helped me grow technically by learning the latest engineering applications of LLMs. As I have more free time, I will be expanding the
 knowledge base for this app to include more information about my work experience, travel experience, and personal hobbies. I hope you have fun with it:smile:
+
+[Link for code](https://github.com/Coldestadam/llm_project)
 """
 st.write(welcome_message)
 

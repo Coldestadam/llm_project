@@ -10,6 +10,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_community.document_loaders import PyPDFLoader
 
 # Initializing Langchain API
 
@@ -32,9 +33,15 @@ def get_chromadb_client(_embedding_model):
     # Initializing chroma database client
     persistent_client = chromadb.PersistentClient()
     
-    # Loading documents
+    # Loading documents from txt and resume (pdf) files
     loader = TextLoader(file_path="info/Personal RAG Details.txt")
     documents = loader.load()
+
+    pdf_loader = PyPDFLoader("info/AV_MLE_Resume.pdf")
+    pdf_docs = pdf_loader
+
+    # Combining documents together
+    documents.extend(pdf_docs)
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
                                                 chunk_overlap=200,
@@ -60,32 +67,6 @@ def get_chromadb_client(_embedding_model):
 
     return persistent_client
 
-# @st.cache_resource
-# def get_vector_store(_embedding_model):
-#     # Loading documents
-#     loader = TextLoader(file_path="info/Personal RAG Details.txt")
-#     documents = loader.load()
-
-#     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
-#                                                 chunk_overlap=200,
-#                                                 add_start_index=True)
-
-#     # Split documents to store in Vector Store
-#     splits = text_splitter.split_documents(documents)
-
-#     # Creating Chroma Vector Store DB to store using OpenAI's embedding model
-#     # vector_store = Chroma(collection_name="adam_rag_txt",
-#     #                       embedding_function=OpenAIEmbeddings(model="text-embedding-3-small"))
-#     vector_store = Chroma(collection_name="adam_rag_txt",
-#                           embedding_function=_embedding_model)
-
-#     # Storing embeddings of the splits in vector store
-#     vector_store.add_documents(documents=splits)
-
-#     return vector_store
-
-
-#@st.cache_resource
 def get_history_aware_retriever(chromadb_client, embedding_model, llm):
 
     # Loading vector store from chromadb client
@@ -115,18 +96,7 @@ def get_history_aware_retriever(chromadb_client, embedding_model, llm):
     
     return history_aware_retriever
 
-#@st.cache_resource
 def get_rag_chain(_llm, _history_aware_retriever):
-    # system_prompt = """You are Adam's personal assistant, and users are interested in learning more about him. It is your responsibility to
-    #     answer questions about Adam's professional or personal life based on the given context below. If the question has nothing to do with Adam but is relevant to 
-    #     the chat history, please expand on your knowledge. Otherwise, if the question has nothing to do with Adam and the chat history tell the user that you 
-    #     cannot answer the question since you are restricted to answering questions about Adam only. If the question is about Adam but the context is not helpful or unrelated to the question, 
-    #     tell the user that you do not have the necessary information to answer the question but insinuate that Adam is willing to answer that question directly. 
-    #     If the question is inappropriate about Adam or something else, do not answer the question and tell the user that the question is inappropriate for this application.
-
-
-    #     {context}
-    #     """
 
     system_prompt = """You are Adam's personal assistant, and users are interested in learning more about him. It is your responsibility to
         answer questions about Adam's professional or personal life based on the given context below. If the question has nothing to do with Adam but is relevant to 
