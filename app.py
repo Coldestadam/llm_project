@@ -10,6 +10,11 @@ chromadb_client = get_chromadb_client(embedding_model)
 history_aware_retriever = get_history_aware_retriever(chromadb_client, embedding_model, llm)
 rag_chain = get_rag_chain(llm, history_aware_retriever)
 
+# Setting page config
+st.set_page_config(page_title="Adam's Assistant",
+                   page_icon=":robot_face:"
+)
+
 st.title("Adam's Assistant")
 st.caption("THIS IS IN BETA")
 st.image("info/headshot.jpeg", caption="Top tower of La Sagrada Famiília in Barcelona")
