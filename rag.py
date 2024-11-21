@@ -1,4 +1,5 @@
 import os
+import glob
 import streamlit as st
 import chromadb
 from langchain import hub
@@ -8,7 +9,7 @@ from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_community.document_loaders import TextLoader, PyPDFLoader, UnstructuredMarkdownLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader, UnstructuredMarkdownLoader, UnstructuredHTMLLoader
 
 # Initializing Langchain API
 os.environ['LANGCHAIN_TRACING_V2'] = st.secrets['LANGCHAIN_TRACING_V2']
@@ -31,20 +32,29 @@ def get_chromadb_client(_embedding_model):
     # Initializing chroma database client
     persistent_client = chromadb.PersistentClient()
     
-    # Loading documents from txt and resume (pdf) files
-    loader = TextLoader(file_path="info/Personal RAG Details.txt")
-    documents = loader.load()
+    # Loading documents from txt, academic transcript, resume (pdf) files, and README files
+    documents = []
+
+    # Loading all text files in directory info/
+    txt_files = glob.glob("./info/*.txt")
+
+    for txt_file in txt_files:
+        loader = TextLoader(file_path=txt_file)
+        documents.extend(loader.load())
+
+    # Loading Academic Transcript from local html file
+    transcript_path = "info/Academic Transcript.html"
+    loader = UnstructuredHTMLLoader(transcript_path)
+    documents.extend(loader.load())
 
     # Loading readme of the repo
     readme_loader = UnstructuredMarkdownLoader(file_path="README.md")
     readme_docs = readme_loader.load()
-    # Combining readme doc with documents
     documents.extend(readme_docs)
 
+    # Loading Machine Learning Engineer Resume
     pdf_loader = PyPDFLoader("info/AV_MLE_Resume.pdf")
     pdf_docs = pdf_loader.load()
-
-    # Combining resume doc with documents
     documents.extend(pdf_docs)
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
