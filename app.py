@@ -19,19 +19,8 @@ def reset_chat_history():
     if "chat_history" in st.session_state:
         del st.session_state["chat_history"]
 
-# Add a streamlit drop down to select the RAG chain version
-rag_chain_version = st.selectbox("Select RAG Chain Version", ["v0", "v1"], on_change=reset_chat_history)
-
-# If the user selects v0, we will use the v0 RAG chain, otherwise we will use the v1 RAG chain
-if rag_chain_version == "v0":
-    rag_chain = get_rag_chain_v0(llm, history_aware_retriever)
-   
-else:
-    rag_chain = get_rag_chain_v1(llm, history_aware_retriever)
-
 
 st.title("Adam's Assistant")
-st.caption("THIS IS IN BETA")
 st.image("info/headshot.jpeg", caption="Top tower of La Sagrada Famiília in Barcelona")
 
 # Displaying a welcome message for the user
@@ -45,6 +34,15 @@ knowledge base for this app to include more information about my work experience
 """
 st.write(welcome_message)
 
+# Add a streamlit drop down to select the RAG chain version
+rag_chain_version = st.selectbox("Select RAG Chain Version", ["v0", "v1"], on_change=reset_chat_history)
+
+# If the user selects v0, we will use the v0 RAG chain, otherwise we will use the v1 RAG chain
+if rag_chain_version == "v0":
+    rag_chain = get_rag_chain_v0(llm, history_aware_retriever)
+   
+else:
+    rag_chain = get_rag_chain_v1(llm, history_aware_retriever)
 
 # Storing messages in the session state
 if "chat_history" not in st.session_state:
