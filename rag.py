@@ -26,7 +26,7 @@ def get_embedding_model():
 
 @st.cache_resource
 def get_llm_model():
-    return ChatOpenAI(model="gpt-4.1-mini")
+    return ChatOpenAI(model="gpt-4o-mini")
 @st.cache_resource
 def get_chromadb_client(_embedding_model):
     """
