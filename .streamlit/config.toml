@@ -1,0 +1,9 @@
+[server]
+enableCORS = false
+enableXsrfProtection = false
+
+[client]
+showErrorDetails = "full"
+
+[logger]
+level = "info"
