@@ -5,6 +5,11 @@ from rag import get_embedding_model, get_history_aware_retriever, get_llm_model,
 import nltk
 import os
 
+# Setting page config
+st.set_page_config(page_title="Adam's Assistant",
+                   page_icon=":robot_face:"
+)
+
 # Set the NLTK data directory to a writable path
 nltk.data.path.append(os.path.join(os.path.dirname(__file__), "nltk_data"))
 
@@ -18,12 +23,6 @@ def download_nltk_data():
         st.error(f"Failed to download NLTK data: {e}")
 
 download_nltk_data()
-
-
-# Setting page config
-st.set_page_config(page_title="Adam's Assistant",
-                   page_icon=":robot_face:"
-)
 
 # Getting all necessary objects for langchain app
 embedding_model = get_embedding_model()
