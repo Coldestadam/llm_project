@@ -2,6 +2,24 @@ import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from rag import get_embedding_model, get_history_aware_retriever, get_llm_model, get_rag_chain_v0, get_rag_chain_v1, get_chromadb_client, stream_wrapper
 
+import nltk
+import os
+
+# Set the NLTK data directory to a writable path
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), "nltk_data"))
+
+# Download NLTK data during the build process
+@st.cache_resource
+def download_nltk_data():
+    try:
+        nltk.download('punkt', download_dir="nltk_data")
+        nltk.download('averaged_perceptron_tagger_eng', download_dir="nltk_data")
+    except Exception as e:
+        st.error(f"Failed to download NLTK data: {e}")
+
+download_nltk_data()
+
+
 # Setting page config
 st.set_page_config(page_title="Adam's Assistant",
                    page_icon=":robot_face:"
