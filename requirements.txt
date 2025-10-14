@@ -48,13 +48,13 @@ jsonpointer==3.0.0
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 kubernetes==31.0.0
-langchain==0.3.7
-langchain-chroma==0.1.4
-langchain-community==0.3.7
-langchain-core==0.3.18
-langchain-openai==0.2.8
-langchain-text-splitters==0.3.2
-langsmith==0.1.143
+langchain==0.3.27
+langchain-chroma==0.2.6
+langchain-community==0.3.30
+langchain-core==0.3.79
+langchain-openai=0.3.35
+langchain-text-splitters==0.3.11
+langsmith==0.4.35
 markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 marshmallow==3.23.1
@@ -139,5 +139,5 @@ wrapt==1.16.0
 yarl==1.17.1
 zipp==3.21.0
 pypdf==5.1.0
-unstructured==0.16.5
+unstructured[all-docs]
 markdown==3.7
